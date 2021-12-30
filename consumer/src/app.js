@@ -1,9 +1,6 @@
-import express from "express"
 import amqp from "amqplib/callback_api.js"
 
-const app = express()
-
-amqp.connect('amqp://rabbit-mq:5672', (err, connection) => {
+amqp.connect(process.env.AMQP_CONNECTION, (err, connection) => {
   if (err) {
     console.log(err)
     throw err
@@ -46,14 +43,6 @@ amqp.connect('amqp://rabbit-mq:5672', (err, connection) => {
     }, {
       // manual acknowledgment mode,
       noAck: false
-    }
+    })
   })
-})
-
-app.get('/', (req, res) => {
-  res.send('Server B Okay!!')
-})
-
-app.listen(3001, '0.0.0.0', () => {
-  console.log('Server B okay...')
 })

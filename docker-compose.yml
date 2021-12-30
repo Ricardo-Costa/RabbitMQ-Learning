@@ -15,30 +15,41 @@ services:
       - "15672:15672"
     networks:
       - local2
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
-  server_a:
+  producer:
     image: node:14.18.2-alpine3.14
-    container_name: server_a
+    container_name: producer
     depends_on:
-      - rabbitmq
+      rabbit-mq:
+        condition: service_healthy
     tty: true
     entrypoint: ["/bin/sh", "/home/node/app/.docker/entrypoint.sh"]
     volumes:
-      - ./server_a/:/home/node/app/
+      - ./producer/:/home/node/app/
+    environment:
+      - AMQP_CONNECTION=amqp://guest:guest123@rabbit-mq:5672
     ports:
       - 3000:3000
     networks:
       - local2
 
-  server_b:
+  consumer:
     image: node:14.18.2-alpine3.14
-    container_name: server_b
+    container_name: consumer
     depends_on:
-      - rabbitmq
+      rabbit-mq:
+        condition: service_healthy
     tty: true
     entrypoint: ["/bin/sh", "/home/node/app/.docker/entrypoint.sh"]
     volumes:
-      - ./server_b/:/home/node/app/
+      - ./consumer/:/home/node/app/
+    environment:
+      - AMQP_CONNECTION=amqp://guest:guest123@rabbit-mq:5672
     ports:
       - 3001:3001
     networks:

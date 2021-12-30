@@ -3,8 +3,8 @@
 data/*
 !data/.gitkeep
 
-server_a/node_modules
-server_a/.vscode
+producer/node_modules
+producer/.vscode
 
-server_b/node_modules
-server_b/.vscode
+consumer/node_modules
+consumer/.vscode
