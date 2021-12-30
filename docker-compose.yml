@@ -1,0 +1,42 @@
+vesion: "3.8"
+
+services:
+
+  rabbit-mq:
+    image: rabbitmq:3.9-management
+    container_name: rabbit-mq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - local2
+
+  server_a:
+    image: node:14.18.2-alpine3.14
+    container_name: server_a
+    depends_on:
+      - rabbitmq
+    tty: true
+    volumes:
+      - ./server_a/:/home/node/app/
+    ports:
+      - 3000:3000
+    networks:
+      - local2
+
+  server_b:
+    image: node:14.18.2-alpine3.14
+    container_name: server_b
+    depends_on:
+      - rabbitmq
+    tty: true
+    volumes:
+      - ./server_b/:/home/node/app/
+    ports:
+      - 3001:3001
+    networks:
+      - local2
+
+networks:
+  local2:
+    driver: bridge

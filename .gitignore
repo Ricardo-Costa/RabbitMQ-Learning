@@ -1,0 +1,7 @@
+.vscode
+
+server_a/node_modules
+server_a/.vscode
+
+server_b/node_modules
+server_b/.vscode
