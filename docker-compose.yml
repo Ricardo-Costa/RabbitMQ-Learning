@@ -1,4 +1,4 @@
-vesion: "3.8"
+version: "3.8"
 
 services:
 
@@ -17,6 +17,7 @@ services:
     depends_on:
       - rabbitmq
     tty: true
+    entrypoint: ["/bin/sh", "/home/node/app/.docker/entrypoint.sh"]
     volumes:
       - ./server_a/:/home/node/app/
     ports:
@@ -30,6 +31,7 @@ services:
     depends_on:
       - rabbitmq
     tty: true
+    entrypoint: ["/bin/sh", "/home/node/app/.docker/entrypoint.sh"]
     volumes:
       - ./server_b/:/home/node/app/
     ports:
