@@ -20,12 +20,33 @@ amqp.connect('amqp://rabbit-mq:5672', (err, connection) => {
     channel.assertQueue(queue, {
       durable: false
     })
+    channel.prefetch(1)
 
+    // ------------------- NO -> Acknowledgement --------------------------------- //
+    /*
     channel.consume(queue, msg => {
       console.log("Received %s", msg.content.toString());
     }, {
       noAck: true
     })
+    */
+
+    // ------------------- Acknowledgement --------------------------------- //
+    channel.consume(queue, msg => {
+      console.log("Received %s", msg.content.toString());
+
+      // do something
+      setTimeout(() => {
+        channel.ack(msg)
+
+        connection.close()
+        process.exit(0)
+      }, 1000);
+
+    }, {
+      // manual acknowledgment mode,
+      noAck: false
+    }
   })
 })
 

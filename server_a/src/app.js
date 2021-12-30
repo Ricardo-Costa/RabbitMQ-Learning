@@ -32,7 +32,11 @@ amqp.connect('amqp://rabbit-mq:5672', (err, connection) => {
       durable: false
     })
 
-    channel.sendToQueue(queue, Buffer.from(msg))
+    channel.sendToQueue(
+      queue,
+      Buffer.from(msg),
+      { persistent: true }
+    )
 
     console.log("MSG: %s", msg)
 
