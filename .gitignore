@@ -1,5 +1,8 @@
 .vscode
 
+data/*
+!data/.gitkeep
+
 server_a/node_modules
 server_a/.vscode
 
