@@ -33,8 +33,8 @@ services:
       - ./producer/:/home/node/app/
     environment:
       - AMQP_CONNECTION=amqp://guest:guest123@rabbit-mq:5672
-    ports:
-      - 3000:3000
+    # ports:
+    #   - 3000:3000
     networks:
       - local2
 
@@ -50,8 +50,25 @@ services:
       - ./consumer/:/home/node/app/
     environment:
       - AMQP_CONNECTION=amqp://guest:guest123@rabbit-mq:5672
-    ports:
-      - 3001:3001
+    # ports:
+    #   - 3001:3001
+    networks:
+      - local2
+
+  consumer2:
+    image: node:14.18.2-alpine3.14
+    container_name: consumer2
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+    tty: true
+    entrypoint: ["/bin/sh", "/home/node/app/.docker/entrypoint.sh"]
+    volumes:
+      - ./consumer/:/home/node/app/
+    environment:
+      - AMQP_CONNECTION=amqp://guest:guest123@rabbit-mq:5672
+    # ports:
+    #   - 3002:3002
     networks:
       - local2
 

@@ -33,12 +33,12 @@ amqp.connect(process.env.AMQP_CONNECTION, (err, connection) => {
       console.log("Received %s", msg.content.toString());
 
       // do something
-      setTimeout(() => {
+      // setTimeout(() => {
         channel.ack(msg)
 
-        connection.close()
-        process.exit(0)
-      }, 1000);
+        // connection.close()
+        // process.exit(0)
+      // }, 1000);
 
     }, {
       // manual acknowledgment mode,
