@@ -8,3 +8,9 @@ producer/.vscode
 
 consumer/node_modules
 consumer/.vscode
+
+producer_broadcast/node_modules
+producer_broadcast/.vscode
+
+consumer_broadcast/node_modules
+consumer_broadcast/.vscode

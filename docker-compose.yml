@@ -72,6 +72,57 @@ services:
     networks:
       - local2
 
+  producer_broadcast:
+    image: node:14.18.2-alpine3.14
+    container_name: producer_broadcast
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+    tty: true
+    entrypoint: ["/bin/sh", "/home/node/app/.docker/entrypoint.sh"]
+    volumes:
+      - ./producer_broadcast/:/home/node/app/
+    environment:
+      - AMQP_CONNECTION=amqp://guest:guest123@rabbit-mq:5672
+    # ports:
+    #   - 3000:3000
+    networks:
+      - local2
+
+  consumer_broadcast:
+    image: node:14.18.2-alpine3.14
+    container_name: consumer_broadcast
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+    tty: true
+    entrypoint: ["/bin/sh", "/home/node/app/.docker/entrypoint.sh"]
+    volumes:
+      - ./consumer_broadcast/:/home/node/app/
+    environment:
+      - AMQP_CONNECTION=amqp://guest:guest123@rabbit-mq:5672
+    # ports:
+    #   - 3001:3001
+    networks:
+      - local2
+
+  consumer_broadcast2:
+    image: node:14.18.2-alpine3.14
+    container_name: consumer_broadcast2
+    depends_on:
+      rabbit-mq:
+        condition: service_healthy
+    tty: true
+    entrypoint: ["/bin/sh", "/home/node/app/.docker/entrypoint.sh"]
+    volumes:
+      - ./consumer_broadcast/:/home/node/app/
+    environment:
+      - AMQP_CONNECTION=amqp://guest:guest123@rabbit-mq:5672
+    # ports:
+    #   - 3002:3002
+    networks:
+      - local2
+
 networks:
   local2:
     driver: bridge
