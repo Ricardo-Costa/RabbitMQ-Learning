@@ -14,3 +14,9 @@ producer_broadcast/.vscode
 
 consumer_broadcast/node_modules
 consumer_broadcast/.vscode
+
+producer_direct/node_modules
+producer_direct/.vscode
+
+consumer_direct/node_modules
+consumer_direct/.vscode
