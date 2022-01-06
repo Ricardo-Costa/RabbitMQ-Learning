@@ -20,3 +20,9 @@ producer_direct/.vscode
 
 consumer_direct/node_modules
 consumer_direct/.vscode
+
+producer_topic/node_modules
+producer_topic/.vscode
+
+consumer_topic/node_modules
+consumer_topic/.vscode
